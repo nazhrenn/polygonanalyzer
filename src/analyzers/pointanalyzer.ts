@@ -61,10 +61,6 @@ export class PointAnalyzer {
 
         details.edgeTotal = edgeTotal;
         details.isClockwise = edgeTotal > 0;
-        details.top = top;
-        details.bottom = bottom;
-        details.left = left;
-        details.right = right;
 
         return details;
     }

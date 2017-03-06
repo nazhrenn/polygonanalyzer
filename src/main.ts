@@ -63,10 +63,12 @@ function analyze(samplePointSet: number[][], reverse: boolean) {
     var bounds: Bounds = new BoundsAnalyzer().analyze(samplePointSet);
     var details: PolygonDetails = new PointAnalyzer().analyze(samplePointSet);
 
-    var color : string  = "red"
+    var color: string = "red"
     if (details.isClockwise) {
         color = "blue";
     }
+
+    Log.append(`Polygon is <u>${details.isClockwise ? "clockwise" : "counter-clockwise"}</u> with a <u>${details.edgeTotal}</u> edge total.`);
 
     graphPoints(bounds, samplePointSet, color);
 }

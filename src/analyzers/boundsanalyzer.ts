@@ -17,7 +17,6 @@ export class BoundsAnalyzer {
                 right = pointData[0];
                 top = pointData[1];
                 bottom = pointData[1];
-                topIndex = pointCount;
             } else {
                 if (pointData[0] < left) {
                     left = pointData[0];
@@ -27,7 +26,6 @@ export class BoundsAnalyzer {
                 }
                 if (pointData[1] < top) {
                     top = pointData[1];
-                    topIndex = pointCount;
                 }
                 if (pointData[1] > bottom) {
                     bottom = pointData[1];

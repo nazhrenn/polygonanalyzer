@@ -10,7 +10,7 @@ export class Log {
 
   public static append(message: any) {
     let block: HTMLElement = document.createElement("div");
-    block.textContent = message;
+    block.innerHTML = message;
 
     Log.logElement.appendChild(block);
   }
