@@ -6,7 +6,7 @@ import { DataSet } from "../utils/dataset";
 import { PlotGraph } from "../display/plotgraph";
 
 export class PointWindingAnalyzer {
-    analyze(samplePointSet: number[][]): PolygonDetails {
+    analyze(samplePointSet: Point[]): PolygonDetails {
         var details: PolygonDetails = new PolygonDetails();
 
         var isCW: boolean = false;
@@ -19,14 +19,14 @@ export class PointWindingAnalyzer {
         var edgeTotal = 0;
 
         for (var pointData of samplePointSet) {
-            var compare: number[];
+            var compare: Point;
             if (pointCount == samplePointSet.length - 1) {
                 compare = samplePointSet[0];
             } else {
                 compare = samplePointSet[pointCount + 1];
             }
 
-            edgeTotal += (compare[0] - pointData[0]) * (compare[1] + pointData[1]);
+            edgeTotal += (compare.x - pointData.x) * (compare.y + pointData.y);
 
             pointCount++;
         }

@@ -1,3 +1,8 @@
+import { Point } from './display/point';
+import { DataSet } from './utils/dataset';
+import { PointAnalyzer } from './analyzers/pointanalyzer';
+import { EdgeDetails } from './analyzers/edgedetails';
+import { EdgeAnalyzer } from './analyzers/edgeanalyzer';
 import { BoundsAnalyzer } from './analyzers/boundsanalyzer';
 import { Bounds } from './analyzers/bounds';
 
@@ -60,15 +65,18 @@ function analyze(samplePointSet: number[][], reverse: boolean) {
         samplePointSet = reversedPointSet;
     }
 
-    var bounds: Bounds = new BoundsAnalyzer().analyze(samplePointSet);
-    var details: PolygonDetails = new PointWindingAnalyzer().analyze(samplePointSet);
+    var dataSet: DataSet<Point> = new PointAnalyzer().analyze(samplePointSet);
+
+    var bounds: Bounds = new BoundsAnalyzer().analyze(dataSet.Data);
+    var polygonDetails: PolygonDetails = new PointWindingAnalyzer().analyze(dataSet.Data);
+    var edgeDetails: EdgeDetails = new EdgeAnalyzer().analyze(dataSet.Data);
 
     var color: string = "red"
-    if (details.isClockwise) {
+    if (polygonDetails.isClockwise) {
         color = "blue";
     }
 
-    Log.append(`Polygon is <u>${details.isClockwise ? "clockwise" : "counter-clockwise"}</u> with a <u>${details.edgeTotal}</u> edge total.`);
+    Log.append(`Polygon is <u>${polygonDetails.isClockwise ? "clockwise" : "counter-clockwise"}</u> with a <u>${polygonDetails.edgeTotal}</u> edge total.`);
 
-    graphPoints(bounds, samplePointSet, color);
+    graphPoints(bounds, dataSet.Data, color);
 }

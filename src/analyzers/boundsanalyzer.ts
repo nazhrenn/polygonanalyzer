@@ -1,7 +1,8 @@
+import { Point } from './../display/point';
 import { Bounds } from './bounds';
 
 export class BoundsAnalyzer {
-    analyze(samplePointSet: number[][]): Bounds {
+    analyze(samplePointSet: Point[]): Bounds {
         var details: Bounds = new Bounds();
 
         var top: number = 0;
@@ -13,22 +14,22 @@ export class BoundsAnalyzer {
 
         for (var pointData of samplePointSet) {
             if (pointCount == 0) {
-                left = pointData[0];
-                right = pointData[0];
-                top = pointData[1];
-                bottom = pointData[1];
+                left = pointData.x;
+                right = pointData.x;
+                top = pointData.y;
+                bottom = pointData.y;
             } else {
-                if (pointData[0] < left) {
-                    left = pointData[0];
+                if (pointData.x < left) {
+                    left = pointData.x;
                 }
-                if (pointData[0] > right) {
-                    right = pointData[0];
+                if (pointData.x > right) {
+                    right = pointData.x;
                 }
-                if (pointData[1] < top) {
-                    top = pointData[1];
+                if (pointData.y < top) {
+                    top = pointData.y;
                 }
-                if (pointData[1] > bottom) {
-                    bottom = pointData[1];
+                if (pointData.y > bottom) {
+                    bottom = pointData.y;
                 }
             }
 

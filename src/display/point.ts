@@ -12,6 +12,10 @@ export class Point {
         return `(${this.x},${this.y})`;
     }
 
+    public equals(other: Point): boolean {
+        return (this.x == other.x && this.y == other.y);
+    }
+
     public translate(dx: number, dy: number) {
         this.x -= dx;
         this.y -= dy;
