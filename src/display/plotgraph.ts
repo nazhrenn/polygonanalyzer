@@ -1,8 +1,8 @@
 
 import { Point } from "./point";
-import { Bounds } from "./bounds";
+import { Graph } from "./bounds";
 
-export class Graph extends Bounds {
+export class PlotGraph extends Graph {
   private color: string;
 
   constructor(top: number, left: number, bottom: number, right: number) {

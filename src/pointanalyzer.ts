@@ -1,8 +1,8 @@
 
-import { Point } from './point';
-import { Log } from "./log";
-import { DataSet } from "./dataset";
-import { Graph } from "./graph";
+import { Point } from './display/point';
+import { Log } from "./utils/log";
+import { DataSet } from "./utils/dataset";
+import { PlotGraph } from "./display/plotgraph";
 
 export default function graphPoints(samplePointSet: number[][], reverse: boolean) {
 
