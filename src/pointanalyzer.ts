@@ -73,7 +73,7 @@ export default function graphPoints(samplePointSet: number[][], reverse: boolean
 
     isCW = edgeTotal > 0;
 
-    let graph: Graph = new Graph(top - 0.05, left - 0.05, bottom + 0.05, right + 0.05);
+    let graph: PlotGraph = new PlotGraph(top - 0.05, left - 0.05, bottom + 0.05, right + 0.05);
 
     //Log.append(`Graph is ${graph.Width} wide and ${graph.Height} tall.`);
     //Log.append(`Setting aspect ratio to ${graph.Height / graph.Width}.`);
@@ -82,7 +82,7 @@ export default function graphPoints(samplePointSet: number[][], reverse: boolean
     Log.append(`Polygon is ${isCW ? "Clockwise" : "Counter-clockwise"} winding.`);
     Log.append(`Edge total: ${edgeTotal}.`);
     Log.append(`Reverse direction: ${reverse}`);
-    let dataSet: DataSet = new DataSet(samplePointSet);
+    let dataSet: DataSet<Point> = DataSet.create(samplePointSet, (d) => new Point(d[0],d[1]));
 
     if (isCW) {
         graph.setColor("blue");
@@ -90,5 +90,5 @@ export default function graphPoints(samplePointSet: number[][], reverse: boolean
         graph.setColor("red");
     }
 
-    graph.polygon(dataSet.Points, true);
+    graph.polygon(dataSet.Data, true);
 }

@@ -1,6 +1,6 @@
 
 import { Point } from "./point";
-import { Graph } from "./bounds";
+import { Graph } from "./graph";
 
 export class PlotGraph extends Graph {
   private color: string;

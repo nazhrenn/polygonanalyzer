@@ -1,7 +1,7 @@
 
-export class Bounds {
+export class Graph {
     static canvasElement: HTMLCanvasElement = document.getElementsByTagName('canvas')[0];
-    static context: CanvasRenderingContext2D = Bounds.canvasElement.getContext('2d');;
+    static context: CanvasRenderingContext2D = Graph.canvasElement.getContext('2d');;
 
     protected top: number;
     protected left: number;
@@ -32,11 +32,11 @@ export class Bounds {
     }
 
     public get DisplayWidth(): number {
-        return Bounds.canvasElement.width;
+        return Graph.canvasElement.width;
     }
 
     public get DisplayHeight(): number {
-        return Bounds.canvasElement.height;
+        return Graph.canvasElement.height;
     }
 
     public get VerticalScale(): number {
@@ -52,6 +52,6 @@ export class Bounds {
     }
     
     protected get context() : CanvasRenderingContext2D {
-      return Bounds.context;
+      return Graph.context;
     }
 }
