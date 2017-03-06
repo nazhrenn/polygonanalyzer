@@ -2,7 +2,7 @@ import { BoundsAnalyzer } from './analyzers/boundsanalyzer';
 import { Bounds } from './analyzers/bounds';
 
 import { PolygonDetails } from './analyzers/polygondetails';
-import { PointAnalyzer } from './analyzers/pointanalyzer';
+import { PointWindingAnalyzer } from './analyzers/pointwindinganalyzer';
 import { Log } from './utils/log';
 import graphPoints from "./pointgrapher";
 
@@ -61,7 +61,7 @@ function analyze(samplePointSet: number[][], reverse: boolean) {
     }
 
     var bounds: Bounds = new BoundsAnalyzer().analyze(samplePointSet);
-    var details: PolygonDetails = new PointAnalyzer().analyze(samplePointSet);
+    var details: PolygonDetails = new PointWindingAnalyzer().analyze(samplePointSet);
 
     var color: string = "red"
     if (details.isClockwise) {
