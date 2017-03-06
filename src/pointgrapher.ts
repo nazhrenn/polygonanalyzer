@@ -1,4 +1,5 @@
 
+import { Bounds } from "./analyzers/bounds";
 import { Point } from './display/point';
 import { DataSet } from "./utils/dataset";
 import { PlotGraph } from "./display/plotgraph";

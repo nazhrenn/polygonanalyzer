@@ -1,5 +1,4 @@
 import { Bounds } from './bounds';
-import { Analyzer } from './analyzer';
 
 export class BoundsAnalyzer {
     analyze(samplePointSet: number[][]): Bounds {

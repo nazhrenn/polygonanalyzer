@@ -1,6 +1,5 @@
 import { PolygonDetails } from './polygondetails';
 
-import { Analyzer } from './analyzer';
 import { Point } from '../display/point';
 import { Log } from "../utils/log";
 import { DataSet } from "../utils/dataset";
