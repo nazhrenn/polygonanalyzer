@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="https://code.angularjs.org/tools/system.js"></script>
+  <script src="https://code.angularjs.org/tools/typescript.js"></script>
+  <script src="config.js"></script>
+  <script>
+    System.import('app')
+      .catch(console.error.bind(console));
+  </script>
+</head>
+
+<body>
+  <div>
+    <canvas id="graph" width="500" height="500"></canvas>
+  </div>
+  <div>
+    <input type="button" id="previous" value="Previous" />
+    <input type="button" id="next" value="Next" />
+    <input type="checkbox" id="reverse"><label for="reverse">Reverse Direction</label>
+  </div>
+  <div id="log"></div>
+</body>
+
+</html>
