@@ -12,12 +12,22 @@ export class Polygon {
         this.edges.add(edge);
     }
 
-    toString() : string {
-        var output : String[] = [];
+    toString(): string {
+        var output: String[] = [];
         for (var edge of this.edges.Items) {
             output.push(edge.toString());
         }
 
         return `${this.edges.Items.length} sides.  ${output.join(";")}`;
+    }
+
+    reverse(): Polygon {
+        var reversed: Polygon = new Polygon();
+
+        for (var edge of this.edges.Items) {
+            reversed.addEdge(edge.reverse());
+        }
+
+        return reversed;
     }
 }

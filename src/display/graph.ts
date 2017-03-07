@@ -5,7 +5,7 @@ export class Graph {
     static canvasElement: HTMLCanvasElement = document.getElementsByTagName('canvas')[0];
     static context: CanvasRenderingContext2D = Graph.canvasElement.getContext('2d');;
 
-    private color: string;
+    protected color: string;
 
     protected top: number;
     protected left: number;

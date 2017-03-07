@@ -16,9 +16,9 @@ export class PlotGraph extends Graph {
       this.point(edge.start);
 
       if (arrow) {
-        this.arrow(edge.end, edge.start);
+        this.arrow(edge.start, edge.end);
       } else {
-        this.line(edge.end, edge.start);
+        this.line(edge.start, edge.end);
       }
     }
   }
@@ -43,9 +43,29 @@ export class PlotGraph extends Graph {
     }
   }
 
-  public point(point: Point, width: number = 1, height: number = 1): void {
+  public point(point: Point, displayText: boolean = true, width: number = 1, height: number = 1): void {
     let t: Point = this.transpose(point);
     this.context.fillRect(t.x, t.y, width, height);
+
+    if (displayText) {
+      var temp: string = this.color;
+
+      this.setColor("black");
+      var textX = t.x + 5;
+      if (textX + 15 > this.DisplayWidth) {
+        textX = textX - 35;
+      }
+      var textY  = t.y - 5;
+      if (textY + 5 > this.DisplayHeight) {
+        textY = textY - 5;
+      }
+      if (textY - 10 < 0) {
+        textY = textY + 10;
+      }
+
+      this.context.fillText(point.toString(), textX, textY);
+      this.setColor(temp);
+    }
   }
 
   public circle(point: Point, radius: number) {

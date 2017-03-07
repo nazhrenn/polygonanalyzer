@@ -10,10 +10,13 @@ export default function graphPoints(bounds: Bounds, colors: string[], ...polygon
 
     let graph: PlotGraph = new PlotGraph(bounds.top - 0.05, bounds.left - 0.05, bounds.bottom + 0.05, bounds.right + 0.05);
 
-    if (colors != null && colors.length > 0)
-        graph.setColor(colors.random());
-
     for (var polygon of polygons) {
+
+        if (colors != null && colors.length > 0) {
+            var color = colors.popRandom();
+            graph.setColor(color);
+        }
+
         graph.polygon(polygon, true);
 
         graph.setColor("#777777");

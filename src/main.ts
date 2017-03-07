@@ -76,7 +76,7 @@ function analyze(samplePointSet: number[][], reverse: boolean) {
 
 
     if (polygons != null && polygons.length > 1) {
-        var colors: string[] = ["red", "blue", "green", "black", "magenta"];
+        var colors: string[] = ["red", "blue", "green", "black", "magenta", "#441155", "#99ff44", "#99ff11"];
 
         for (var p of polygons) {
             Log.append(`Polygon: ${p}.`);
