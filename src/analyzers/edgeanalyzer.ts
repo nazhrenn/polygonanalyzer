@@ -49,9 +49,25 @@ export class EdgeAnalyzer {
             }
 
             if (intersections.length > 0) {
+                var start: Point = edge.start;
+                var end: Point = edge.end;
+                var previous: Point = null;
+                var edgeCount: number = 0;
                 for (var intersection of intersections) {
                     Log.append(`<b>Intersection at ${intersection}.</b>`);
+
+                    if (edgeCount > 0) {
+                        polygon.addEdge(new Edge(start, intersection));
+                    } else if (edgeCount < intersections.length - 1) {
+                        polygon.addEdge(new Edge(previous, intersection));
+                    } else {
+                    }
+
+                    previous = intersection;
+                    edgeCount++;
                 }
+                
+                polygon.addEdge(new Edge(previous, end));
             }
             else {
                 polygon.addEdge(edge);
@@ -63,6 +79,11 @@ export class EdgeAnalyzer {
                 debugger;
                 break;
             }
+        }
+
+        Log.append(`Creating a polygon with edges:`);
+        for (var edge of polygon.edges) {
+            Log.append(`${edge}`);
         }
 
         return null;
