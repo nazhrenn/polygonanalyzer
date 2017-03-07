@@ -10,7 +10,7 @@ export class PlotGraph extends Graph {
   }
 
 
-  public polygon(polygon: Polygon, arrow: boolean = false) : void {
+  public polygon(polygon: Polygon, arrow: boolean = false): void {
     for (var edge of polygon.edges.Items) {
       this.point(edge.start);
 
@@ -42,9 +42,16 @@ export class PlotGraph extends Graph {
     }
   }
 
-  public point(point: Point): void {
+  public point(point: Point, width: number = 1, height: number = 1): void {
     let t: Point = this.transpose(point);
-    this.context.fillRect(t.x, t.y, 1, 1);
+    this.context.fillRect(t.x, t.y, width, height);
+  }
+
+  public circle(point: Point, radius: number) {
+    let t: Point = this.transpose(point);
+    this.context.moveTo(t.x - radius, t.y);
+    this.context.ellipse(t.x, t.y, radius, radius, Math.PI, 0, 360);
+    this.context.stroke();
   }
 
   public line(from: Point, to: Point): void {
