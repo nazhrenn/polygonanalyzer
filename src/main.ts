@@ -10,10 +10,12 @@ import { PolygonDetails } from './analyzers/polygondetails';
 import { PointWindingAnalyzer } from './analyzers/pointwindinganalyzer';
 import { Log } from './utils/log';
 import graphPoints from "./pointgrapher";
+import graphPolygon from "./polygongrapher";
 
 import samplePointSets from './pointdata'
+import { Polygon } from "./display/polygon";
 
-var selectedIndex: number = samplePointSets.length > 0 ? 0 : -1;
+var selectedIndex: number = samplePointSets.length > 0 ? samplePointSets.length - 1 : -1;
 
 var previousButton: HTMLInputElement = <HTMLInputElement>document.getElementById("previous");
 var nextButton: HTMLInputElement = <HTMLInputElement>document.getElementById("next");
@@ -69,7 +71,7 @@ function analyze(samplePointSet: number[][], reverse: boolean) {
 
     var bounds: Bounds = new BoundsAnalyzer().analyze(dataSet.Data);
     var polygonDetails: PolygonDetails = new PointWindingAnalyzer().analyze(dataSet.Data);
-    var edgeDetails: EdgeDetails = new EdgeAnalyzer().analyze(dataSet.Data);
+    var polygon: Polygon = new EdgeAnalyzer().analyze(dataSet.Data);
 
     var color: string = "red"
     if (polygonDetails.isClockwise) {
@@ -78,5 +80,6 @@ function analyze(samplePointSet: number[][], reverse: boolean) {
 
     Log.append(`Polygon is <u>${polygonDetails.isClockwise ? "clockwise" : "counter-clockwise"}</u> with a <u>${polygonDetails.edgeTotal}</u> edge total.`);
 
-    graphPoints(bounds, dataSet.Data, color);
+    graphPolygon(bounds, polygon, color);
+    //graphPoints(bounds, dataSet.Data, color);
 }

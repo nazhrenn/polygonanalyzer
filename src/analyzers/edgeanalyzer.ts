@@ -3,11 +3,10 @@ import { Log } from './../utils/log';
 import { LinkedList } from './../utils/linkedlist';
 import { Edge } from './../display/edge';
 import { Point } from './../display/point';
-import { EdgeDetails } from './edgedetails';
 
 export class EdgeAnalyzer {
 
-    analyze(samplePointSet: Point[]): EdgeDetails {
+    analyze(samplePointSet: Point[]): Polygon {
         var edges: LinkedList<Edge> = new LinkedList<Edge>();
         for (var i = 0; i < samplePointSet.length; i++) {
             var start: Point = samplePointSet[i];
@@ -31,7 +30,9 @@ export class EdgeAnalyzer {
             var isIntersected: boolean = false;
             var intersections: Point[] = [];
 
-            for (var compare of edges.Items) {
+            for (var j = edges.Items.length - 1; j >= 0; j--) {
+                var compare: Edge = edges.Items[j];
+                
                 if (compare !== edge && compare != edges.Previous && compare != edges.Next) {
                     Log.append(`Comparing ${edge} to ${compare}`);
                     var intersection: Point = this.checkIntersection(edge, compare);
@@ -55,10 +56,10 @@ export class EdgeAnalyzer {
                 var edgeCount: number = 0;
                 for (var intersection of intersections) {
                     Log.append(`<b>Intersection at ${intersection}.</b>`);
-
-                    if (edgeCount > 0) {
+                    debugger;
+                    if (edgeCount == 0) {
                         polygon.addEdge(new Edge(start, intersection));
-                    } else if (edgeCount < intersections.length - 1) {
+                    } else if (edgeCount < intersections.length) {
                         polygon.addEdge(new Edge(previous, intersection));
                     } else {
                     }
@@ -66,7 +67,7 @@ export class EdgeAnalyzer {
                     previous = intersection;
                     edgeCount++;
                 }
-                
+
                 polygon.addEdge(new Edge(previous, end));
             }
             else {
@@ -76,7 +77,6 @@ export class EdgeAnalyzer {
             edge = edges.moveNext();
 
             if (edge == edges.First) {
-                debugger;
                 break;
             }
         }
@@ -86,7 +86,7 @@ export class EdgeAnalyzer {
             Log.append(`${edge}`);
         }
 
-        return null;
+        return polygon;
     }
 
     checkIntersection(one: Edge, two: Edge): Point {

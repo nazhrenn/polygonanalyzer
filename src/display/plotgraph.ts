@@ -1,6 +1,7 @@
 
 import { Point } from "./point";
 import { Graph } from "./graph";
+import { Polygon } from "./polygon";
 
 export class PlotGraph extends Graph {
   private color: string;
@@ -22,7 +23,19 @@ export class PlotGraph extends Graph {
     this.context.clearRect(0, 0, this.DisplayWidth, this.DisplayHeight);
   }
 
-  public polygon(points: Point[], arrow: boolean = false): void {
+  public polygon(polygon: Polygon, arrow: boolean = false) : void {
+    for (var edge of polygon.edges) {
+      this.point(edge.start);
+
+      if (arrow) {
+        this.arrow(edge.start, edge.end);
+      } else {
+        this.line(edge.start, edge.end);
+      }
+    }
+  }
+
+  public polygonPoints(points: Point[], arrow: boolean = false): void {
 
     for (let i = 0; i < points.length; i++) {
       let p: Point = points[i];

@@ -18,7 +18,6 @@ export class Edge {
     }
 
     contains(point: Point): boolean {
-        debugger;
         return this.bounds().contains(point);
     }
 
