@@ -16,25 +16,25 @@ export class LinkedList<T> {
         this.items.splice(this.index, 0, item);
     }
 
-    get First(): T {
+    get FirstItem(): T {
         if (this.items.length > 0)
             return this.items[0];
 
         return null;
     }
 
-    get Last(): T {
+    get LastItem(): T {
         if (this.items.length > 0)
             return this.items[this.items.length - 1];
 
         return null;
     }
 
-    get Current(): T {
+    get CurrentItem(): T {
         return this.items[this.index];
     }
 
-    get Next(): T {
+    get NextItem(): T {
         if (this.index + 1 >= this.items.length) {
             return this.items[0];
         } else {
@@ -42,7 +42,7 @@ export class LinkedList<T> {
         }
     }
 
-    get Previous(): T {
+    get PreviousItem(): T {
         if (this.index - 1 < 0) {
             return this.items[this.items.length - 1];
         } else {
@@ -51,7 +51,7 @@ export class LinkedList<T> {
     }
 
     moveNext(): T {
-        var next: T = this.Next;
+        var next: T = this.NextItem;
         this.index = this.index + 1;
         if (this.index >= this.items.length)
             this.index = 0;
@@ -59,7 +59,7 @@ export class LinkedList<T> {
     }
 
     movePrevious(): T {
-        var prev: T = this.Previous;
+        var prev: T = this.PreviousItem;
         this.index = this.index - 1;
         if (this.index < 0)
             this.index = this.items.length - 1;

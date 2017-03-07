@@ -26,14 +26,14 @@ export class EdgeAnalyzer {
 
         var edge: Edge = edges.moveNext();
         while (edge != null) {
-            Log.append(edges.Current);
+            Log.append(edges.CurrentItem);
             var isIntersected: boolean = false;
             var intersections: Point[] = [];
 
             for (var j = edges.Items.length - 1; j >= 0; j--) {
                 var compare: Edge = edges.Items[j];
-                
-                if (compare !== edge && compare != edges.Previous && compare != edges.Next) {
+
+                if (compare !== edge && compare != edges.PreviousItem && compare != edges.NextItem) {
                     Log.append(`Comparing ${edge} to ${compare}`);
                     var intersection: Point = this.checkIntersection(edge, compare);
 
@@ -56,7 +56,6 @@ export class EdgeAnalyzer {
                 var edgeCount: number = 0;
                 for (var intersection of intersections) {
                     Log.append(`<b>Intersection at ${intersection}.</b>`);
-                    debugger;
                     if (edgeCount == 0) {
                         polygon.addEdge(new Edge(start, intersection));
                     } else if (edgeCount < intersections.length) {
@@ -76,13 +75,13 @@ export class EdgeAnalyzer {
 
             edge = edges.moveNext();
 
-            if (edge == edges.First) {
+            if (edge == edges.FirstItem) {
                 break;
             }
         }
 
         Log.append(`Creating a polygon with edges:`);
-        for (var edge of polygon.edges) {
+        for (var edge of polygon.edges.Items) {
             Log.append(`${edge}`);
         }
 

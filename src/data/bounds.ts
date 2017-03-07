@@ -1,4 +1,4 @@
-import { Point } from './../display/point';
+import { Point } from './../data/point';
 
 export class Bounds {
     top: number;

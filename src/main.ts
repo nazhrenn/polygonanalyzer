@@ -1,19 +1,18 @@
-import { Point } from './display/point';
+import { Point } from './data/point';
 import { DataSet } from './utils/dataset';
 import { PointAnalyzer } from './analyzers/pointanalyzer';
-import { EdgeDetails } from './analyzers/edgedetails';
 import { EdgeAnalyzer } from './analyzers/edgeanalyzer';
 import { BoundsAnalyzer } from './analyzers/boundsanalyzer';
-import { Bounds } from './analyzers/bounds';
+import { Bounds } from './data/bounds';
 
-import { PolygonDetails } from './analyzers/polygondetails';
+import { PolygonDetails } from './data/polygondetails';
 import { PointWindingAnalyzer } from './analyzers/pointwindinganalyzer';
 import { Log } from './utils/log';
-import graphPoints from "./pointgrapher";
-import graphPolygon from "./polygongrapher";
+import graphPoints from "./grapher/pointgrapher";
+import graphPolygon from "./grapher/polygongrapher";
 
 import samplePointSets from './pointdata'
-import { Polygon } from "./display/polygon";
+import { Polygon } from "./data/polygon";
 
 var selectedIndex: number = samplePointSets.length > 0 ? samplePointSets.length - 1 : -1;
 

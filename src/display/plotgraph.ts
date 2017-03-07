@@ -1,7 +1,7 @@
 
-import { Point } from "./point";
+import { Point } from "./../data/point";
 import { Graph } from "./graph";
-import { Polygon } from "./polygon";
+import { Polygon } from "./../data/polygon";
 
 export class PlotGraph extends Graph {
   private color: string;
@@ -24,7 +24,7 @@ export class PlotGraph extends Graph {
   }
 
   public polygon(polygon: Polygon, arrow: boolean = false) : void {
-    for (var edge of polygon.edges) {
+    for (var edge of polygon.edges.Items) {
       this.point(edge.start);
 
       if (arrow) {
