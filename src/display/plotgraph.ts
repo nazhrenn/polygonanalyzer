@@ -4,24 +4,11 @@ import { Graph } from "./graph";
 import { Polygon } from "./../data/polygon";
 
 export class PlotGraph extends Graph {
-  private color: string;
 
   constructor(top: number, left: number, bottom: number, right: number) {
     super(top, left, bottom, right);
-
-    this.clear();
   }
 
-  public setColor(color: string): void {
-    this.color = color;
-    this.context.fillStyle = color;
-    this.context.strokeStyle = color;
-  }
-
-  public clear(): void {
-    this.setColor("black");
-    this.context.clearRect(0, 0, this.DisplayWidth, this.DisplayHeight);
-  }
 
   public polygon(polygon: Polygon, arrow: boolean = false) : void {
     for (var edge of polygon.edges.Items) {
@@ -60,7 +47,7 @@ export class PlotGraph extends Graph {
     this.context.fillRect(t.x, t.y, 1, 1);
   }
 
-  line(from: Point, to: Point): void {
+  public line(from: Point, to: Point): void {
     let ft: Point = this.transpose(from);
     let tt: Point = this.transpose(to);
 
@@ -70,7 +57,7 @@ export class PlotGraph extends Graph {
     this.context.stroke();
   }
 
-  arrow(from: Point, to: Point): void {
+  public arrow(from: Point, to: Point): void {
     let ft: Point = this.transpose(from);
     let tt: Point = this.transpose(to);
 
@@ -85,12 +72,5 @@ export class PlotGraph extends Graph {
     this.context.moveTo(tt.x, tt.y);
     this.context.lineTo(tt.x - headlen * Math.cos(angle + Math.PI / 6), tt.y - headlen * Math.sin(angle + Math.PI / 6));
     this.context.stroke();
-  }
-
-  private transpose(point: Point): Point {
-    let p: Point = new Point(point.x, point.y)
-    p.translate(this.left, this.top);
-    p.scale(this.HorizontalScale, this.VerticalScale);
-    return p;
   }
 }

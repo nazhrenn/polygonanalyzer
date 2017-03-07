@@ -63,6 +63,10 @@ export class EdgeAnalyzer {
                     } else {
                     }
 
+                    if (!polygon.intersections.has(intersection.toString())) {
+                        polygon.intersections.set(intersection.toString(), intersection);
+                    }
+
                     previous = intersection;
                     edgeCount++;
                 }

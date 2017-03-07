@@ -13,4 +13,8 @@ export default function graphPoints(bounds: Bounds, polygon: Polygon, color: str
         graph.setColor(color);
 
     graph.polygon(polygon, true);
+
+    for (var intersection of polygon.intersections.values()) {
+        graph.point(intersection);
+    }
 }
