@@ -1,6 +1,6 @@
-import { PolygonDetails } from './polygondetails';
+import { PolygonDetails } from './../data/polygondetails';
 
-import { Point } from '../display/point';
+import { Point } from '../data/point';
 import { Log } from "../utils/log";
 import { DataSet } from "../utils/dataset";
 import { PlotGraph } from "../display/plotgraph";

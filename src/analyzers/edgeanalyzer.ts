@@ -1,8 +1,8 @@
-import { Polygon } from './../display/polygon';
+import { Polygon } from './../data/polygon';
 import { Log } from './../utils/log';
 import { LinkedList } from './../utils/linkedlist';
-import { Edge } from './../display/edge';
-import { Point } from './../display/point';
+import { Edge } from './../data/edge';
+import { Point } from './../data/point';
 
 export class EdgeAnalyzer {
 

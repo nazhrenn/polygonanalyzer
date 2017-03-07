@@ -1,5 +1,5 @@
-import { Point } from './../display/point';
-import { Bounds } from './bounds';
+import { Point } from './../data/point';
+import { Bounds } from './../data/bounds';
 
 export class BoundsAnalyzer {
     analyze(samplePointSet: Point[]): Bounds {

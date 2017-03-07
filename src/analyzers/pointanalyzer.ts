@@ -1,5 +1,5 @@
 import { DataSet } from './../utils/dataset';
-import { Point } from './../display/point';
+import { Point } from './../data/point';
 
 export class PointAnalyzer {
     analyze(samplePointSet: number[][]): DataSet<Point> {
