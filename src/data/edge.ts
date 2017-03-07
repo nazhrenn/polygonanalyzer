@@ -1,5 +1,5 @@
 import { BoundsAnalyzer } from './../analyzers/boundsanalyzer';
-import { Bounds } from './../analyzers/bounds';
+import { Bounds } from './bounds';
 import { Point } from './point';
 
 export class Edge {

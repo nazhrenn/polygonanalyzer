@@ -1,9 +1,13 @@
 {
     "compilerOptions": {
-        "sourceMap": true
+        "module": "system",
+        "target": "es6",
+        "sourceMap": true,
+        "outDir": "."
     },
     "include" :  [
-        "**/*.ts"
+        "**/*"
     ],
+    "exclude": [],
     "compileOnSave": true
 }
