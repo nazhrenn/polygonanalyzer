@@ -32,6 +32,24 @@ export class Edge {
         return [edge];
     }
 
+    equals(edge: Edge) : boolean {
+        return edge.start.equals(this.start) && edge.end.equals(this.end);
+    }
+
+    compare(edge: Edge) : number {
+        if (this.equals(edge)) {
+            return 1;
+        } else if (this.reverse().equals(edge)) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
+    reverse() : Edge {
+        return new Edge(this.end, this.start);
+    }
+
     public toString(): string {
         return `${this.start}:${this.end}`;
     }

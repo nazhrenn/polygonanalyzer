@@ -3,7 +3,8 @@
         "module": "system",
         "target": "es6",
         "sourceMap": true,
-        "outDir": "."
+        "outDir": ".",
+        "watch": true
     },
     "include" :  [
         "**/*"

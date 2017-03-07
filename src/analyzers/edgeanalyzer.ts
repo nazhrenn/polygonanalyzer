@@ -1,5 +1,4 @@
 import { Polygon } from './../data/polygon';
-import { Log } from './../utils/log';
 import { LinkedList } from './../utils/linkedlist';
 import { Edge } from './../data/edge';
 import { Point } from './../data/point';
@@ -23,10 +22,10 @@ export class EdgeAnalyzer {
         }
 
         var polygon: Polygon = new Polygon();
+        var polygonIntersections: Map<string, Point> = new Map<string, Point>();
 
         var edge: Edge = edges.moveNext();
         while (edge != null) {
-            Log.append(edges.CurrentItem);
             var isIntersected: boolean = false;
             var intersections: Point[] = [];
 
@@ -34,7 +33,6 @@ export class EdgeAnalyzer {
                 var compare: Edge = edges.Items[j];
 
                 if (compare !== edge && compare != edges.PreviousItem && compare != edges.NextItem) {
-                    Log.append(`Comparing ${edge} to ${compare}`);
                     var intersection: Point = this.checkIntersection(edge, compare);
 
                     if (intersection != null &&
@@ -55,7 +53,6 @@ export class EdgeAnalyzer {
                 var previous: Point = null;
                 var edgeCount: number = 0;
                 for (var intersection of intersections) {
-                    Log.append(`<b>Intersection at ${intersection}.</b>`);
                     if (edgeCount == 0) {
                         polygon.addEdge(new Edge(start, intersection));
                     } else if (edgeCount < intersections.length) {
@@ -63,8 +60,8 @@ export class EdgeAnalyzer {
                     } else {
                     }
 
-                    if (!polygon.intersections.has(intersection.toString())) {
-                        polygon.intersections.set(intersection.toString(), intersection);
+                    if (!polygonIntersections.has(intersection.toString())) {
+                        polygonIntersections.set(intersection.toString(), intersection);
                     }
 
                     previous = intersection;
@@ -84,9 +81,8 @@ export class EdgeAnalyzer {
             }
         }
 
-        Log.append(`Creating a polygon with edges:`);
-        for (var edge of polygon.edges.Items) {
-            Log.append(`${edge}`);
+        for (var intersection of polygonIntersections.values()) {
+            polygon.intersections.add(intersection);
         }
 
         return polygon;

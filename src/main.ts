@@ -13,6 +13,7 @@ import graphPolygon from "./grapher/polygongrapher";
 
 import samplePointSets from './pointdata'
 import { Polygon } from "./data/polygon";
+import { PolygonSplitterAnalyzer } from "./analyzers/polygonsplitteranalyzer";
 
 var selectedIndex: number = samplePointSets.length > 0 ? samplePointSets.length - 1 : -1;
 
@@ -71,14 +72,26 @@ function analyze(samplePointSet: number[][], reverse: boolean) {
     var bounds: Bounds = new BoundsAnalyzer().analyze(dataSet.Data);
     var polygonDetails: PolygonDetails = new PointWindingAnalyzer().analyze(dataSet.Data);
     var polygon: Polygon = new EdgeAnalyzer().analyze(dataSet.Data);
+    var polygons: Polygon[] = new PolygonSplitterAnalyzer().analyze(polygon);
 
-    var color: string = "red"
-    if (polygonDetails.isClockwise) {
-        color = "blue";
+
+    if (polygons != null && polygons.length > 1) {
+        var colors: string[] = ["red", "blue", "green", "black", "magenta"];
+
+        for (var p of polygons) {
+            Log.append(`Polygon: ${p}.`);
+        }
+
+        graphPolygon(bounds, colors, ...polygons);
+    } else {
+        var color: string = "red"
+        if (polygonDetails.isClockwise) {
+            color = "blue";
+        }
+
+        Log.append(`Polygon is <u>${polygonDetails.isClockwise ? "clockwise" : "counter-clockwise"}</u> with a <u>${polygonDetails.edgeTotal}</u> edge total.`);
+
+        graphPolygon(bounds, [color], polygon);
     }
-
-    Log.append(`Polygon is <u>${polygonDetails.isClockwise ? "clockwise" : "counter-clockwise"}</u> with a <u>${polygonDetails.edgeTotal}</u> edge total.`);
-
-    graphPolygon(bounds, polygon, color);
     //graphPoints(bounds, dataSet.Data, color);
 }

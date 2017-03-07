@@ -4,6 +4,11 @@ export class LinkedList<T> {
     private index: number = -1;
     private items: T[] = [];
 
+    constructor(...items: T[]) {
+        this.items = items;
+        this.reset();
+    }
+
     add(item: T): void {
         this.items.push(item);
     }
@@ -48,6 +53,10 @@ export class LinkedList<T> {
         } else {
             return this.items[this.index - 1];
         }
+    }
+
+    reset(): void {
+        this.index = (this.items.length > 0) ? 0 : -1;
     }
 
     moveNext(): T {

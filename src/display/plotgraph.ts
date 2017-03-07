@@ -11,13 +11,14 @@ export class PlotGraph extends Graph {
 
 
   public polygon(polygon: Polygon, arrow: boolean = false): void {
+    polygon.edges.reset();
     for (var edge of polygon.edges.Items) {
       this.point(edge.start);
 
       if (arrow) {
-        this.arrow(edge.start, edge.end);
+        this.arrow(edge.end, edge.start);
       } else {
-        this.line(edge.start, edge.end);
+        this.line(edge.end, edge.start);
       }
     }
   }
