@@ -4,16 +4,14 @@ import { PointAnalyzer } from './analyzers/pointanalyzer';
 import { EdgeAnalyzer } from './analyzers/edgeanalyzer';
 import { BoundsAnalyzer } from './analyzers/boundsanalyzer';
 import { Bounds } from './data/bounds';
-
-import { PolygonDetails } from './data/polygondetails';
-import { PointWindingAnalyzer } from './analyzers/pointwindinganalyzer';
 import { Log } from './utils/log';
+import { Polygon } from "./data/polygon";
+import { PolygonSplitterAnalyzer } from "./analyzers/polygonsplitteranalyzer";
+
 import graphPoints from "./grapher/pointgrapher";
 import graphPolygon from "./grapher/polygongrapher";
 
 import samplePointSets from './pointdata'
-import { Polygon } from "./data/polygon";
-import { PolygonSplitterAnalyzer } from "./analyzers/polygonsplitteranalyzer";
 
 var selectedIndex: number = samplePointSets.length > 0 ? samplePointSets.length - 1 : -1;
 
@@ -70,7 +68,6 @@ function analyze(samplePointSet: number[][], reverse: boolean) {
     var dataSet: DataSet<Point> = new PointAnalyzer().analyze(samplePointSet);
 
     var bounds: Bounds = new BoundsAnalyzer().analyze(dataSet.Data);
-    var polygonDetails: PolygonDetails = new PointWindingAnalyzer().analyze(dataSet.Data);
     var polygon: Polygon = new EdgeAnalyzer().analyze(dataSet.Data);
     var polygons: Polygon[] = new PolygonSplitterAnalyzer().analyze(polygon);
 
@@ -85,11 +82,11 @@ function analyze(samplePointSet: number[][], reverse: boolean) {
         graphPolygon(bounds, colors, ...polygons);
     } else {
         var color: string = "red"
-        if (polygonDetails.isClockwise) {
+        if (polygon.isClockwise()) {
             color = "blue";
         }
 
-        Log.append(`Polygon is <u>${polygonDetails.isClockwise ? "clockwise" : "counter-clockwise"}</u> with a <u>${polygonDetails.edgeTotal}</u> edge total.`);
+        Log.append(`Polygon is <u>${polygon.isClockwise() ? "clockwise" : "counter-clockwise"}</u> with a <u>${polygon.getEdgeTotal()}</u> edge total.`);
 
         graphPolygon(bounds, [color], polygon);
     }

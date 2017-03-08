@@ -14,6 +14,13 @@ export class PolygonSplitterAnalyzer {
             polygons = [];
             for (var polygon of seekPolygons) {
                 var splitPolygons: Polygon[] = this.split(polygon, intersection);
+
+                for (var i = 0; i < splitPolygons.length; i++) {
+                    if (!splitPolygons[i].isClockwise()) {
+                        splitPolygons[i] = splitPolygons[i].reverseOrder().reverse();
+                    }
+                }
+
                 polygons.push(...splitPolygons);
             }
 

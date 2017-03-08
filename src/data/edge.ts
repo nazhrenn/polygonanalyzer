@@ -50,6 +50,10 @@ export class Edge {
         return new Edge(this.end, this.start);
     }
 
+    getEdgeTotal() : number {
+        return (this.start.x - this.end.x) * (this.start.y + this.end.y);
+    }
+
     public toString(): string {
         return `${this.start}:${this.end}`;
     }
