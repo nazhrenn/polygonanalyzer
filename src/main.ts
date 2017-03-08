@@ -2,11 +2,10 @@ import { Point } from './data/point';
 import { DataSet } from './utils/dataset';
 import { PointAnalyzer } from './analyzers/pointanalyzer';
 import { EdgeAnalyzer } from './analyzers/edgeanalyzer';
-import { BoundsAnalyzer } from './analyzers/boundsanalyzer';
 import { Bounds } from './data/bounds';
 import { Log } from './utils/log';
 import { Polygon } from "./data/polygon";
-import { PolygonSplitterAnalyzer } from "./analyzers/polygonsplitteranalyzer";
+import { PolygonSplitter } from "./analyzers/polygonsplitter";
 
 import graphPoints from "./grapher/pointgrapher";
 import graphPolygon from "./grapher/polygongrapher";
@@ -58,9 +57,9 @@ function analyze(samplePointSet: number[][], reverse: boolean) {
 
     var dataSet: DataSet<Point> = new PointAnalyzer().analyze(samplePointSet);
 
-    var bounds: Bounds = new BoundsAnalyzer().analyze(dataSet.Data);
     var polygon: Polygon = new EdgeAnalyzer().analyze(dataSet.Data);
-    var polygons: Polygon[] = new PolygonSplitterAnalyzer().analyze(polygon);
+    var bounds: Bounds = polygon.bounds();
+    var polygons: Polygon[] = new PolygonSplitter().analyze(polygon);
 
     if (polygons != null && polygons.length > 1) {
         var colors: string[] = ["red", "blue", "green", "black", "magenta", "#441155", "#99ff44", "#99ff11"];

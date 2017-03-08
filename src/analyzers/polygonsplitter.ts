@@ -5,7 +5,7 @@ import { Edge } from "../data/edge";
 import { Point } from "../data/point";
 import "../utils/array.extensions";
 
-export class PolygonSplitterAnalyzer {
+export class PolygonSplitter {
     analyze(polygon: Polygon): Polygon[] {
         var polygons: Polygon[] = [polygon];
 
@@ -27,8 +27,8 @@ export class PolygonSplitterAnalyzer {
             seekPolygons = polygons;
         }
 
-        if (seekPolygons.length > 1) {
-            
+        if (polygons.length > 1) {
+
         }
 
         return polygons;

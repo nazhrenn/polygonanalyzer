@@ -1,6 +1,7 @@
 import { Edge } from './edge';
 import { LinkedList } from "../utils/linkedlist";
 import { Point } from "./point";
+import { Bounds } from "./bounds";
 
 
 export class Polygon {
@@ -53,5 +54,48 @@ export class Polygon {
         }
 
         return edgeTotal;
+    }
+
+    bounds(): Bounds {
+        var details: Bounds = new Bounds();
+
+        var top: number = 0;
+        var bottom: number = 0;
+        var left: number = 0;
+        var right: number = 0;
+
+        var pointCount: number = 0;
+
+        for (var edge of this.edges.Items) {
+            for (var pointData of [edge.start, edge.end]) {
+                if (pointCount == 0) {
+                    left = pointData.x;
+                    right = pointData.x;
+                    top = pointData.y;
+                    bottom = pointData.y;
+                } else {
+                    if (pointData.x < left) {
+                        left = pointData.x;
+                    }
+                    if (pointData.x > right) {
+                        right = pointData.x;
+                    }
+                    if (pointData.y < top) {
+                        top = pointData.y;
+                    }
+                    if (pointData.y > bottom) {
+                        bottom = pointData.y;
+                    }
+                }
+                pointCount++;
+            }
+        }
+
+        details.top = top;
+        details.bottom = bottom;
+        details.left = left;
+        details.right = right;
+
+        return details;
     }
 }

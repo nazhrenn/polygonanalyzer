@@ -7,7 +7,6 @@ import { Polygon } from "./../data/polygon";
 import "../utils/array.extensions";
 
 export default function graphPoints(bounds: Bounds, colors: string[], ...polygons: Polygon[]) {
-
     let graph: PlotGraph = new PlotGraph(bounds.top - 0.05, bounds.left - 0.05, bounds.bottom + 0.05, bounds.right + 0.05);
 
     for (var polygon of polygons) {
