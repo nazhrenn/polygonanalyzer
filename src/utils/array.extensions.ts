@@ -2,6 +2,8 @@
 interface Array<T> {
     random(): T;
     popRandom(): T;
+
+    duplicate(): Array<T>;
 }
 
 Array.prototype.random = function <T>(): T {
@@ -14,3 +16,13 @@ Array.prototype.popRandom = function <T>(): T {
 
     return this.splice(element, 1)[0];
 };
+
+Array.prototype.duplicate = function <T>(): Array<T> {
+    var target: Array<T> = [];
+
+    for (var t of this) {
+        target.push(t);
+    }
+
+    return target;
+}
