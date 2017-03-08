@@ -56,26 +56,20 @@ function analyze(samplePointSet: number[][], reverse: boolean) {
 
     Log.clear();
 
-    if (reverse) {
-        var reversedPointSet: number[][] = [];
-        for (var i = samplePointSet.length - 1; i >= 0; i--) {
-            reversedPointSet.push(samplePointSet[i]);
-        }
-
-        samplePointSet = reversedPointSet;
-    }
-
     var dataSet: DataSet<Point> = new PointAnalyzer().analyze(samplePointSet);
 
     var bounds: Bounds = new BoundsAnalyzer().analyze(dataSet.Data);
     var polygon: Polygon = new EdgeAnalyzer().analyze(dataSet.Data);
     var polygons: Polygon[] = new PolygonSplitterAnalyzer().analyze(polygon);
 
-
     if (polygons != null && polygons.length > 1) {
         var colors: string[] = ["red", "blue", "green", "black", "magenta", "#441155", "#99ff44", "#99ff11"];
 
         for (var p of polygons) {
+            
+            if (reverse) {
+                p = p.reverseOrder().reverse();
+            }
             Log.append(`Polygon: ${p}.`);
         }
 
@@ -87,6 +81,10 @@ function analyze(samplePointSet: number[][], reverse: boolean) {
         }
 
         Log.append(`Polygon is <u>${polygon.isClockwise() ? "clockwise" : "counter-clockwise"}</u> with a <u>${polygon.getEdgeTotal()}</u> edge total.`);
+
+        if (reverse) {
+            polygon = polygon.reverseOrder().reverse();
+        }
 
         graphPolygon(bounds, [color], polygon);
     }

@@ -27,6 +27,10 @@ export class PolygonSplitterAnalyzer {
             seekPolygons = polygons;
         }
 
+        if (seekPolygons.length > 1) {
+            
+        }
+
         return polygons;
     }
 
