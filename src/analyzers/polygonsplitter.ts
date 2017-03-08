@@ -64,7 +64,9 @@ export class PolygonSplitter {
             var secondPolygon: Polygon = new Polygon();
             while (!polygon.edges.CurrentItem.equals(startingEdge)) {
                 polygon.edges.movePrevious();
-                secondPolygon.addEdge(polygon.edges.CurrentItem);
+                if (!polygon.edges.CurrentItem.equals(polygon.edges.NextItem)) {
+                    secondPolygon.addEdge(polygon.edges.CurrentItem);
+                }
             }
 
             secondPolygon = secondPolygon.reverse();
@@ -79,8 +81,6 @@ export class PolygonSplitter {
                 var secondSplit = this.split(secondPolygon, intersection);
                 splitPolygons.push(...secondSplit);
             }
-
-
 
             return splitPolygons;
         } else {

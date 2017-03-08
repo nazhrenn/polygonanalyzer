@@ -27,7 +27,7 @@ export class EdgeAnalyzer {
         var edge: Edge = edges.moveNext();
         while (edge != null) {
             var isIntersected: boolean = false;
-            var intersections: Point[] = [];
+            var intersections: Map<string, Point> = new Map<string, Point>();
 
             for (var j = edges.Items.length - 1; j >= 0; j--) {
                 var compare: Edge = edges.Items[j];
@@ -41,23 +41,23 @@ export class EdgeAnalyzer {
                         intersection = null;
                     }
 
-                    if (intersection != null && edge.contains(intersection)) {
-                        intersections.push(intersection);
+                    if (intersection != null && edge.contains(intersection)
+                        && !intersections.has(intersection.toString())) {
+                        intersections.set(intersection.toString(), intersection);
                     }
                 }
             }
 
-            if (intersections.length > 0) {
+            if (intersections.size > 0) {
                 var start: Point = edge.start;
                 var end: Point = edge.end;
                 var previous: Point = null;
                 var edgeCount: number = 0;
-                for (var intersection of intersections) {
+                for (var intersection of intersections.values()) {
                     if (edgeCount == 0) {
                         polygon.addEdge(new Edge(start, intersection));
-                    } else if (edgeCount < intersections.length) {
+                    } else if (edgeCount < intersections.size) {
                         polygon.addEdge(new Edge(previous, intersection));
-                    } else {
                     }
 
                     if (!polygonIntersections.has(intersection.toString())) {

@@ -46,6 +46,16 @@ export class Polygon {
         return this.getEdgeTotal() > 0;
     }
 
+    has(point: Point): boolean {
+        for (var edge of this.edges.Items) {
+            if (edge.start.equals(point) || edge.end.equals(point)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     getEdgeTotal(): number {
         var edgeTotal = 0;
 

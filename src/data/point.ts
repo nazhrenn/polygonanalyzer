@@ -4,8 +4,8 @@ export class Point {
     y: number;
 
     constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
+        this.x = x == -0 ? 0 : x;
+        this.y = y == -0 ? 0 : y;
     }
 
     public toString(): string {
