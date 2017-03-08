@@ -104,7 +104,7 @@ export class EdgeAnalyzer {
             var y: number = (a * y34 - b * y12) / c;
 
             var intersection: Point = new Point(x, y);
-            if (one.contains(intersection)) {
+            if (one.contains(intersection) && two.contains(intersection)) {
                 return intersection;
             }
         }
