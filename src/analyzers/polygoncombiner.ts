@@ -7,17 +7,17 @@ import { Log } from "../utils/log";
 
 export class PolygonCombiner {
 
-    analyze(polygons: Polygon[], intersections: Set<Point>): Polygon {
-        let polygon: Polygon = new Polygon();
-        let seekPolygons: Polygon[] = polygons.duplicate();
+    analyze(inputPolygons: Polygon[], intersections: Set<Point>): Polygon {
+        let combinedPolygon: Polygon = new Polygon();
+        let seekPolygons: Polygon[] = inputPolygons.duplicate();
 
         if (intersections.size > 0) {
             for (let intersection of intersections) {
                 let touching: Polygon[] = [];
 
-                for (let polygon of seekPolygons) {
-                    if (polygon.has(intersection)) {
-                        touching.push(polygon);
+                for (let seekPolygon of seekPolygons) {
+                    if (seekPolygon.has(intersection)) {
+                        touching.push(seekPolygon);
                     }
                 }
 
@@ -69,10 +69,10 @@ export class PolygonCombiner {
             }
 
             if (seekPolygons.length == 1) {
-                polygon = seekPolygons[0];
+                combinedPolygon = seekPolygons[0];
             }
 
-            return polygon;
+            return combinedPolygon;
         } else {
             throw new Error("Unable to combine polygons as there are no intersections.")
         }
