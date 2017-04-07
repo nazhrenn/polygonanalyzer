@@ -27,10 +27,6 @@ export class PolygonSplitter {
             seekPolygons = polygons;
         }
 
-        if (polygons.length > 1) {
-
-        }
-
         return polygons;
     }
 
@@ -41,6 +37,7 @@ export class PolygonSplitter {
                 numberOfEdgesOnPoint++;
         }
 
+        var splitPolygons: Polygon[] = [];
         if (numberOfEdgesOnPoint > 2) {
             polygon.edges.reset();
 
@@ -72,7 +69,6 @@ export class PolygonSplitter {
             secondPolygon = secondPolygon.reverse();
             //debugger;
 
-            var splitPolygons: Polygon[] = [];
             if (firstPolygon.edges.Items.length > 2) {
                 var firstSplit = this.split(firstPolygon, intersection);
                 splitPolygons.push(...firstSplit);
@@ -81,10 +77,10 @@ export class PolygonSplitter {
                 var secondSplit = this.split(secondPolygon, intersection);
                 splitPolygons.push(...secondSplit);
             }
-
-            return splitPolygons;
         } else {
-            return [polygon];
+            splitPolygons = [polygon];
         }
+
+        return splitPolygons;
     }
 }
