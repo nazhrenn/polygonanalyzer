@@ -13,7 +13,7 @@ export class PolygonSplitter {
         for (var intersection of polygon.intersections) {
             polygons = [];
             for (var polygon of seekPolygons) {
-                var splitPolygons: Polygon[] = this.split(polygon, intersection);
+                var splitPolygons: Polygon[] = this.recursiveSplit(polygon, intersection);
 
                 for (var i = 0; i < splitPolygons.length; i++) {
                     if (!splitPolygons[i].isClockwise()) {
@@ -30,7 +30,7 @@ export class PolygonSplitter {
         return polygons;
     }
 
-    split(polygon: Polygon, intersection: Point): Polygon[] {
+    private recursiveSplit(polygon: Polygon, intersection: Point): Polygon[] {
         var numberOfEdgesOnPoint = 0;
         for (var edge of polygon.edges.Items) {
             if (edge.start.equals(intersection) || edge.end.equals(intersection))
@@ -51,31 +51,23 @@ export class PolygonSplitter {
 
             firstPolygon.addEdge(startingEdge);
             while (!polygon.edges.CurrentItem.start.equals(intersection)) {
-                polygon.edges.movePrevious();
-                firstPolygon.addEdge(polygon.edges.CurrentItem);
+                firstPolygon.addEdge(polygon.edges.movePrevious());
             }
 
             firstPolygon = firstPolygon.reverse();
-            //firstPolygon.addEdge(polygon.edges.CurrentItem);
 
             var secondPolygon: Polygon = new Polygon();
             while (!polygon.edges.CurrentItem.equals(startingEdge)) {
-                polygon.edges.movePrevious();
-                if (!polygon.edges.CurrentItem.equals(polygon.edges.NextItem)) {
-                    secondPolygon.addEdge(polygon.edges.CurrentItem);
-                }
+                secondPolygon.addEdge(polygon.edges.movePrevious());
             }
 
             secondPolygon = secondPolygon.reverse();
-            //debugger;
 
             if (firstPolygon.edges.Items.length > 2) {
-                var firstSplit = this.split(firstPolygon, intersection);
-                splitPolygons.push(...firstSplit);
+                splitPolygons.push(...this.recursiveSplit(firstPolygon, intersection));
             }
             if (secondPolygon.edges.Items.length > 2) {
-                var secondSplit = this.split(secondPolygon, intersection);
-                splitPolygons.push(...secondSplit);
+                splitPolygons.push(...this.recursiveSplit(secondPolygon, intersection));
             }
         } else {
             splitPolygons = [polygon];
