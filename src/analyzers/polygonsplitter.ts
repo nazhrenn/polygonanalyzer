@@ -50,7 +50,7 @@ export class PolygonSplitter {
                 firstPolygon.addEdge(edgeToAdd);
             }
 
-            firstPolygon = firstPolygon.reverse();
+            firstPolygon = firstPolygon.reverseOrder();
 
             let secondPolygon: Polygon = new Polygon();
             while (!edges.current.equals(startingEdge)) {
@@ -60,7 +60,7 @@ export class PolygonSplitter {
                 }
             }
 
-            secondPolygon = secondPolygon.reverse();
+            secondPolygon = secondPolygon.reverseOrder();
 
             if (firstPolygon.edges.length > 2) {
                 splitPolygons.push(...this.recursiveSplit(firstPolygon, intersection));

@@ -1,3 +1,4 @@
+import { Assert } from './utils/assert';
 import { CircularList } from './utils/circularlist';
 import { Edge } from './data/edge';
 import { PointTransformer } from './analyzers/pointtransformer';
@@ -122,6 +123,19 @@ function analyze(samplePointSet: number[][], reverse: boolean, showBest: boolean
                 color = "blue";
             }
 
+            let finalEdges: CircularList<Edge> = polygon.edges;
+            for (let i: number = 0; i < finalEdges.length; i++) {
+                let currentEdge: Edge = finalEdges[i];
+
+                let previousEdge: Edge;
+                if (i == 0) {
+                    previousEdge = finalEdges[finalEdges.length - 1];
+                } else {
+                    previousEdge = finalEdges[i - 1];
+                }
+
+                Log.append(`Edge ${i + 1}/${finalEdges.length} :: Checking start of edge matches previous edge end. :: ${Assert.isTrue(currentEdge.start.equals(previousEdge.end))}`);
+            }
             Log.append(`Polygon: ${polygon}.`);
             graphPolygon(bounds, [color], polygon);
         }
