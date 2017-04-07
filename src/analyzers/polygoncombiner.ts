@@ -24,28 +24,44 @@ export class PolygonCombiner {
                 var reconstituted: Polygon = new Polygon();
                 if (touching.length > 1) {
                     // recombine the polygons
-                    var target: Polygon = touching.shift();
                     while (touching.length > 0) {
-                        var working = touching[0];
+                        if (touching.length >= 2) {
+                            var target: Polygon = touching.shift();
+                            var working: Polygon = touching.shift();
 
-                        target.edges.find(c => c.end.equals(intersection));
-                        working.edges.find(c => c.start.equals(intersection));
+                            target.edges.find(c => c.end.equals(intersection));
+                            working.edges.find(c => c.start.equals(intersection));
 
-                        for (var edge of working.edges) {
-                            reconstituted.addEdge(edge);
+                            for (var edge of working.edges) {
+                                reconstituted.addEdge(edge);
+                            }
+
+                            for (var edge of target.edges) {
+                                reconstituted.addEdge(edge);
+                            }
+
+                            var n: number = seekPolygons.indexOf(target);
+                            if (n >= 0) {
+                                seekPolygons.splice(n, 1);
+                            }
+
+                            n = seekPolygons.indexOf(working);
+                            if (n >= 0) {
+                                seekPolygons.splice(n, 1);
+                            }
+                        } else {
+                            var working = touching.shift();
+                            working.edges.find(c => c.start.equals(intersection));
+
+                            for (var edge of working.edges) {
+                                reconstituted.addEdge(edge);
+                            }
+
+                            var n: number = seekPolygons.indexOf(working);
+                            if (n >= 0) {
+                                seekPolygons.splice(n, 1);
+                            }
                         }
-
-                        for (var edge of target.edges) {
-                            reconstituted.addEdge(edge);
-                        }
-
-                        var n: number = seekPolygons.indexOf(target);
-
-                        if (n >= 0) {
-                            seekPolygons.splice(n, 1);
-                        }
-
-                        target = touching.shift();
                     }
 
                     var n: number = seekPolygons.indexOf(target);
