@@ -7,15 +7,14 @@ import "../utils/array.extensions";
 
 export class PolygonSplitter {
     analyze(polygon: Polygon): Polygon[] {
-        var polygons: Polygon[] = [polygon];
+        let seekPolygons = [polygon];
 
-        var seekPolygons = polygons;
-        for (var intersection of polygon.intersections) {
-            polygons = [];
-            for (var polygon of seekPolygons) {
-                var splitPolygons: Polygon[] = this.recursiveSplit(polygon, intersection);
+        for (let intersection of polygon.intersections) {
+            let polygons: Polygon[] = [];
+            for (let polygon of seekPolygons) {
+                let splitPolygons: Polygon[] = this.recursiveSplit(polygon, intersection);
 
-                for (var i = 0; i < splitPolygons.length; i++) {
+                for (let i = 0; i < splitPolygons.length; i++) {
                     if (!splitPolygons[i].isClockwise()) {
                         splitPolygons[i] = splitPolygons[i].reverseOrder().reverse();
                     }
@@ -27,27 +26,27 @@ export class PolygonSplitter {
             seekPolygons = polygons;
         }
 
-        return polygons;
+        return seekPolygons;
     }
 
     private recursiveSplit(polygon: Polygon, intersection: Point): Polygon[] {
-        var numberOfEdgesOnPoint = 0;
-        for (var edge of polygon.edges.Items) {
+        let numberOfEdgesOnPoint = 0;
+        for (let edge of polygon.edges.Items) {
             if (edge.start.equals(intersection) || edge.end.equals(intersection))
                 numberOfEdgesOnPoint++;
         }
 
-        var splitPolygons: Polygon[] = [];
+        let splitPolygons: Polygon[] = [];
         if (numberOfEdgesOnPoint > 2) {
             polygon.edges.reset();
 
-            var startingEdge: Edge;
+            let startingEdge: Edge;
             while (!polygon.edges.CurrentItem.end.equals(intersection)) {
                 polygon.edges.moveNext();
             }
             startingEdge = polygon.edges.CurrentItem;
 
-            var firstPolygon: Polygon = new Polygon();
+            let firstPolygon: Polygon = new Polygon();
 
             firstPolygon.addEdge(startingEdge);
             while (!polygon.edges.CurrentItem.start.equals(intersection)) {
@@ -56,7 +55,7 @@ export class PolygonSplitter {
 
             firstPolygon = firstPolygon.reverse();
 
-            var secondPolygon: Polygon = new Polygon();
+            let secondPolygon: Polygon = new Polygon();
             while (!polygon.edges.CurrentItem.equals(startingEdge)) {
                 secondPolygon.addEdge(polygon.edges.movePrevious());
             }
