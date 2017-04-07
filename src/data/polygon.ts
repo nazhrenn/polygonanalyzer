@@ -16,10 +16,10 @@ export class Polygon {
     toString(): string {
         let output: String[] = [];
         for (let edge of this.edges.Items) {
-            output.push(edge.start.toString());
+            output.push(edge.toString());
         }
 
-        return `${this.edges.Items.length} sides. ${this.getEdgeTotal()} ET, ${this.isClockwise() ? 'cw' : 'ccw'}. ${output.join(",")}`;
+        return `${this.edges.Items.length} sides. ${this.getEdgeTotal()} ET, ${this.isClockwise() ? 'cw' : 'ccw'}. ${output.join(";")}`;
     }
 
     reverse(): Polygon {

@@ -12,18 +12,16 @@ export class PolygonSplitter {
         for (let intersection of inputPolygon.intersections) {
             let polygons: Polygon[] = [];
             for (let seekPolygon of seekPolygons) {
-                let splitPolygons: Polygon[] = this.recursiveSplit(seekPolygon, intersection);
-
-                for (let i = 0; i < splitPolygons.length; i++) {
-                    if (!splitPolygons[i].isClockwise()) {
-                        splitPolygons[i] = splitPolygons[i].reverseOrder().reverse();
-                    }
-                }
-
-                polygons.push(...splitPolygons);
+                polygons.push(...this.recursiveSplit(seekPolygon, intersection));
             }
 
             seekPolygons = polygons;
+        }
+
+        for (let i = 0; i < seekPolygons.length; i++) {
+            if (!seekPolygons[i].isClockwise()) {
+                seekPolygons[i] = seekPolygons[i].reverseOrder().reverse();
+            }
         }
 
         return seekPolygons;
