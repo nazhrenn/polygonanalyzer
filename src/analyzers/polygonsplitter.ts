@@ -6,13 +6,13 @@ import { Point } from "../data/point";
 import "../utils/array.extensions";
 
 export class PolygonSplitter {
-    analyze(polygon: Polygon): Polygon[] {
-        let seekPolygons = [polygon];
+    analyze(inputPolygon: Polygon): Polygon[] {
+        let seekPolygons = [inputPolygon];
 
-        for (let intersection of polygon.intersections) {
+        for (let intersection of inputPolygon.intersections) {
             let polygons: Polygon[] = [];
-            for (let polygon of seekPolygons) {
-                let splitPolygons: Polygon[] = this.recursiveSplit(polygon, intersection);
+            for (let seekPolygon of seekPolygons) {
+                let splitPolygons: Polygon[] = this.recursiveSplit(seekPolygon, intersection);
 
                 for (let i = 0; i < splitPolygons.length; i++) {
                     if (!splitPolygons[i].isClockwise()) {
