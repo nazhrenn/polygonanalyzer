@@ -1,23 +1,23 @@
+import { CircularList } from './../utils/circularlist';
 import { Polygon } from './../data/polygon';
-import { LinkedList } from './../utils/linkedlist';
 import { Edge } from './../data/edge';
 import { Point } from './../data/point';
 
 export class EdgeAnalyzer {
 
-    analyze(edges: LinkedList<Edge>): Polygon {
+    analyze(edges: CircularList<Edge>): Polygon {
         let polygon: Polygon = new Polygon();
         let polygonIntersections: Map<string, Point> = new Map<string, Point>();
 
-        let edge: Edge = edges.moveNext();
+        let edge: Edge = edges.next();
         while (edge != null) {
             let isIntersected: boolean = false;
             let intersections: Map<string, Point> = new Map<string, Point>();
 
-            for (let j = edges.Items.length - 1; j >= 0; j--) {
-                let compare: Edge = edges.Items[j];
+            for (let j = edges.length - 1; j >= 0; j--) {
+                let compare: Edge = edges[j];
 
-                if (compare !== edge && compare != edges.PreviousItem && compare != edges.NextItem) {
+                if (compare !== edge && compare != edges.peekPrevious && compare != edges.peekNext) {
                     let intersection: Point = this.checkIntersection(edge, compare);
 
                     if (intersection != null &&
@@ -59,9 +59,9 @@ export class EdgeAnalyzer {
                 polygon.addEdge(edge);
             }
 
-            edge = edges.moveNext();
+            edge = edges.next();
 
-            if (edge == edges.FirstItem) {
+            if (edge == edges.first) {
                 break;
             }
         }

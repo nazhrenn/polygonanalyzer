@@ -1,6 +1,6 @@
+import { CircularList } from './utils/circularlist';
 import { Edge } from './data/edge';
 import { PointTransformer } from './analyzers/pointtransformer';
-import { LinkedList } from './utils/linkedlist';
 import { Point } from './data/point';
 import { DataSet } from './utils/dataset';
 import { PointAnalyzer } from './analyzers/pointanalyzer';
@@ -91,7 +91,7 @@ function analyze(samplePointSet: number[][], reverse: boolean, showBest: boolean
         Log.clear();
 
         let dataSet: DataSet<Point> = new PointAnalyzer().analyze(samplePointSet);
-        let edges: LinkedList<Edge> = new PointTransformer().transform(dataSet.Data);
+        let edges: CircularList<Edge> = new PointTransformer().transform(dataSet.Data);
         let polygon: Polygon = new EdgeAnalyzer().analyze(edges);
         let bounds: Bounds = polygon.bounds();
 

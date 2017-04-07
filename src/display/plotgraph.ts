@@ -12,7 +12,7 @@ export class PlotGraph extends Graph {
 
   public polygon(polygon: Polygon, arrow: boolean = false): void {
     polygon.edges.reset();
-    for (let edge of polygon.edges.Items) {
+    for (let edge of polygon.edges) {
       this.point(edge.start);
 
       if (arrow) {

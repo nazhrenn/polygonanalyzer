@@ -1,31 +1,31 @@
+import { CircularList } from './../utils/circularlist';
 import { Edge } from './edge';
-import { LinkedList } from "../utils/linkedlist";
 import { Point } from "./point";
 import { Bounds } from "./bounds";
 
 
 export class Polygon {
-    edges: LinkedList<Edge> = new LinkedList<Edge>();
+    edges: CircularList<Edge> = new CircularList<Edge>();
 
     intersections: Set<Point> = new Set<Point>();
 
     addEdge(edge: Edge) {
-        this.edges.add(edge);
+        this.edges.push(edge);
     }
 
     toString(): string {
         let output: String[] = [];
-        for (let edge of this.edges.Items) {
+        for (let edge of this.edges) {
             output.push(edge.toString());
         }
 
-        return `${this.edges.Items.length} sides. ${this.getEdgeTotal()} ET, ${this.isClockwise() ? 'cw' : 'ccw'}. ${output.join(";")}`;
+        return `${this.edges.length} sides. ${this.getEdgeTotal()} ET, ${this.isClockwise() ? 'cw' : 'ccw'}. ${output.join(";")}`;
     }
 
     reverse(): Polygon {
         let reversed: Polygon = new Polygon();
 
-        for (let edge of this.edges.Items) {
+        for (let edge of this.edges) {
             reversed.addEdge(edge.reverse());
         }
 
@@ -35,8 +35,8 @@ export class Polygon {
     reverseOrder(): Polygon {
         let reversed: Polygon = new Polygon();
 
-        for (let i = this.edges.Items.length - 1; i >= 0; i--) {
-            reversed.addEdge(this.edges.Items[i]);
+        for (let i = this.edges.length - 1; i >= 0; i--) {
+            reversed.addEdge(this.edges[i]);
         }
 
         return reversed;
@@ -47,7 +47,7 @@ export class Polygon {
     }
 
     has(point: Point): boolean {
-        for (let edge of this.edges.Items) {
+        for (let edge of this.edges) {
             if (edge.start.equals(point) || edge.end.equals(point)) {
                 return true;
             }
@@ -59,7 +59,7 @@ export class Polygon {
     getEdgeTotal(): number {
         let edgeTotal = 0;
 
-        for (let edge of this.edges.Items) {
+        for (let edge of this.edges) {
             edgeTotal += edge.getEdgeTotal();
         }
 
@@ -76,7 +76,7 @@ export class Polygon {
 
         let pointCount: number = 0;
 
-        for (let edge of this.edges.Items) {
+        for (let edge of this.edges) {
             for (let pointData of [edge.start, edge.end]) {
                 if (pointCount == 0) {
                     left = pointData.x;
