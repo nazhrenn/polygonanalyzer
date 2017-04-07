@@ -14,8 +14,8 @@ export class Polygon {
     }
 
     toString(): string {
-        var output: String[] = [];
-        for (var edge of this.edges.Items) {
+        let output: String[] = [];
+        for (let edge of this.edges.Items) {
             output.push(edge.start.toString());
         }
 
@@ -23,9 +23,9 @@ export class Polygon {
     }
 
     reverse(): Polygon {
-        var reversed: Polygon = new Polygon();
+        let reversed: Polygon = new Polygon();
 
-        for (var edge of this.edges.Items) {
+        for (let edge of this.edges.Items) {
             reversed.addEdge(edge.reverse());
         }
 
@@ -33,9 +33,9 @@ export class Polygon {
     }
 
     reverseOrder(): Polygon {
-        var reversed: Polygon = new Polygon();
+        let reversed: Polygon = new Polygon();
 
-        for (var i = this.edges.Items.length - 1; i >= 0; i--) {
+        for (let i = this.edges.Items.length - 1; i >= 0; i--) {
             reversed.addEdge(this.edges.Items[i]);
         }
 
@@ -47,7 +47,7 @@ export class Polygon {
     }
 
     has(point: Point): boolean {
-        for (var edge of this.edges.Items) {
+        for (let edge of this.edges.Items) {
             if (edge.start.equals(point) || edge.end.equals(point)) {
                 return true;
             }
@@ -57,9 +57,9 @@ export class Polygon {
     }
 
     getEdgeTotal(): number {
-        var edgeTotal = 0;
+        let edgeTotal = 0;
 
-        for (var edge of this.edges.Items) {
+        for (let edge of this.edges.Items) {
             edgeTotal += edge.getEdgeTotal();
         }
 
@@ -67,17 +67,17 @@ export class Polygon {
     }
 
     bounds(): Bounds {
-        var details: Bounds = new Bounds();
+        let details: Bounds = new Bounds();
 
-        var top: number = 0;
-        var bottom: number = 0;
-        var left: number = 0;
-        var right: number = 0;
+        let top: number = 0;
+        let bottom: number = 0;
+        let left: number = 0;
+        let right: number = 0;
 
-        var pointCount: number = 0;
+        let pointCount: number = 0;
 
-        for (var edge of this.edges.Items) {
-            for (var pointData of [edge.start, edge.end]) {
+        for (let edge of this.edges.Items) {
+            for (let pointData of [edge.start, edge.end]) {
                 if (pointCount == 0) {
                     left = pointData.x;
                     right = pointData.x;

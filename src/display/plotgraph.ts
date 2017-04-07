@@ -12,7 +12,7 @@ export class PlotGraph extends Graph {
 
   public polygon(polygon: Polygon, arrow: boolean = false): void {
     polygon.edges.reset();
-    for (var edge of polygon.edges.Items) {
+    for (let edge of polygon.edges.Items) {
       this.point(edge.start);
 
       if (arrow) {
@@ -30,7 +30,7 @@ export class PlotGraph extends Graph {
 
       this.point(p);
 
-      var t = i + 1;
+      let t = i + 1;
       if (t >= points.length) {
         t = 0;
       }
@@ -48,14 +48,14 @@ export class PlotGraph extends Graph {
     this.context.fillRect(t.x, t.y, width, height);
 
     if (displayText) {
-      var temp: string = this.color;
+      let temp: string = this.color;
 
       this.setColor("black");
-      var textX = t.x + 5;
+      let textX = t.x + 5;
       if (textX + 15 > this.DisplayWidth) {
         textX = textX - 35;
       }
-      var textY  = t.y - 5;
+      let textY  = t.y - 5;
       if (textY + 5 > this.DisplayHeight) {
         textY = textY - 5;
       }
@@ -89,8 +89,8 @@ export class PlotGraph extends Graph {
     let ft: Point = this.transpose(from);
     let tt: Point = this.transpose(to);
 
-    var headlen = 5;   // length of head in pixels
-    var angle = Math.atan2(tt.y - ft.y, tt.x - ft.x);
+    let headlen = 5;   // length of head in pixels
+    let angle = Math.atan2(tt.y - ft.y, tt.x - ft.x);
 
     this.line(from, to);
 

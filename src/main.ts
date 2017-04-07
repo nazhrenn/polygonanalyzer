@@ -13,16 +13,16 @@ import graphPolygon from "./grapher/polygongrapher";
 import samplePointSets from './pointdata'
 import { PolygonCombiner } from "./analyzers/polygoncombiner";
 
-var selectedIndex: number = samplePointSets.length > 0 ? samplePointSets.length - 1 : -1;
+let selectedIndex: number = samplePointSets.length > 0 ? samplePointSets.length - 1 : -1;
 
-var previousButton: HTMLInputElement = <HTMLInputElement>document.getElementById("previous");
-var nextButton: HTMLInputElement = <HTMLInputElement>document.getElementById("next");
-var reverseCheckbox: HTMLInputElement = <HTMLInputElement>document.getElementById("reverse");
-var showBestCheckbox: HTMLInputElement = <HTMLInputElement>document.getElementById("showBest");
-var useCustomDataCheckbox: HTMLInputElement = <HTMLInputElement>document.getElementById("useCustomData");
-var customDataTextArea: HTMLTextAreaElement = <HTMLTextAreaElement>document.getElementById("customData");
+let previousButton: HTMLInputElement = <HTMLInputElement>document.getElementById("previous");
+let nextButton: HTMLInputElement = <HTMLInputElement>document.getElementById("next");
+let reverseCheckbox: HTMLInputElement = <HTMLInputElement>document.getElementById("reverse");
+let showBestCheckbox: HTMLInputElement = <HTMLInputElement>document.getElementById("showBest");
+let useCustomDataCheckbox: HTMLInputElement = <HTMLInputElement>document.getElementById("useCustomData");
+let customDataTextArea: HTMLTextAreaElement = <HTMLTextAreaElement>document.getElementById("customData");
 
-var eventHandler: (ev: Event) => any = (ev: Event): any => {
+let eventHandler: (ev: Event) => any = (ev: Event): any => {
     if (selectedIndex < 0)
         selectedIndex = samplePointSets.length - 1;
 
@@ -63,15 +63,15 @@ customDataTextArea.onchange = eventHandler;
 customDataTextArea.onkeyup = eventHandler;
 
 function parseCustomData(): number[][] {
-    var text = customDataTextArea.value;
+    let text = customDataTextArea.value;
 
-    var coords = text.split(/(\(-?\d*(?:.\d*)?,-?\d*(?:.\d*)?\)),?/);
+    let coords = text.split(/(\(-?\d*(?:.\d*)?,-?\d*(?:.\d*)?\)),?/);
 
-    var numbers = [];
+    let numbers = [];
 
-    for (var coord of coords) {
+    for (let coord of coords) {
         if (coord != null && coord != "") {
-            var points = /\((-?\d*(?:.\d*)?),(-?\d*(?:.\d*)?)\)/.exec(coord);
+            let points = /\((-?\d*(?:.\d*)?),(-?\d*(?:.\d*)?)\)/.exec(coord);
 
             if (points != null) {
                 numbers.push([+points[1], +points[2]]);
@@ -87,20 +87,20 @@ function analyze(samplePointSet: number[][], reverse: boolean, showBest: boolean
     if (samplePointSet != null) {
         Log.clear();
 
-        var dataSet: DataSet<Point> = new PointAnalyzer().analyze(samplePointSet);
+        let dataSet: DataSet<Point> = new PointAnalyzer().analyze(samplePointSet);
 
-        var polygon: Polygon = new EdgeAnalyzer().analyze(dataSet.Data);
-        var bounds: Bounds = polygon.bounds();
+        let polygon: Polygon = new EdgeAnalyzer().analyze(dataSet.Data);
+        let bounds: Bounds = polygon.bounds();
 
-        var polygons: Polygon[] = new PolygonSplitter().analyze(polygon);
+        let polygons: Polygon[] = new PolygonSplitter().analyze(polygon);
         if (showBest && polygon.intersections.size > 0) {
             polygon = new PolygonCombiner().analyze(polygons, polygon.intersections);
         }
 
         if (!showBest && polygons != null && polygons.length > 1) {
-            var colors: string[] = ["red", "blue", "green", "black", "magenta", "#441155", "#99ff44", "#99ff11"];
+            let colors: string[] = ["red", "blue", "green", "black", "magenta", "#441155", "#99ff44", "#99ff11"];
 
-            for (var p of polygons) {
+            for (let p of polygons) {
 
                 if (reverse) {
                     p = p.reverseOrder().reverse();
@@ -114,7 +114,7 @@ function analyze(samplePointSet: number[][], reverse: boolean, showBest: boolean
                 polygon = polygon.reverseOrder().reverse();
             }
 
-            var color: string = "red"
+            let color: string = "red"
             if (polygon.isClockwise()) {
                 color = "blue";
             }

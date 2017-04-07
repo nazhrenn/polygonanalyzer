@@ -9,10 +9,10 @@ import "../utils/array.extensions";
 export default function graphPoints(bounds: Bounds, colors: string[], ...polygons: Polygon[]) {
     let graph: PlotGraph = new PlotGraph(bounds.top - 0.05, bounds.left - 0.05, bounds.bottom + 0.05, bounds.right + 0.05);
 
-    for (var polygon of polygons) {
+    for (let polygon of polygons) {
 
         if (colors != null && colors.length > 0) {
-            var color = colors.popRandom();
+            let color = colors.popRandom();
             graph.setColor(color);
         }
 
@@ -20,7 +20,7 @@ export default function graphPoints(bounds: Bounds, colors: string[], ...polygon
 
         graph.setColor("#777777");
 
-        for (var intersection of polygon.intersections) {
+        for (let intersection of polygon.intersections) {
             graph.circle(intersection, 5);
         }
     }

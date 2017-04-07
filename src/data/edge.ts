@@ -12,16 +12,16 @@ export class Edge {
     }
 
     bounds(): Bounds {
-        var details: Bounds = new Bounds();
+        let details: Bounds = new Bounds();
 
-        var top: number = 0;
-        var bottom: number = 0;
-        var left: number = 0;
-        var right: number = 0;
+        let top: number = 0;
+        let bottom: number = 0;
+        let left: number = 0;
+        let right: number = 0;
 
-        var pointCount: number = 0;
+        let pointCount: number = 0;
 
-        for (var pointData of [this.start, this.end]) {
+        for (let pointData of [this.start, this.end]) {
             if (pointCount == 0) {
                 left = pointData.x;
                 right = pointData.x;
@@ -58,8 +58,8 @@ export class Edge {
 
     static split(edge: Edge, point: Point): Edge[] {
         if (edge.contains(point)) {
-            var first: Edge = new Edge(edge.start, point);
-            var second: Edge = new Edge(point, edge.end);
+            let first: Edge = new Edge(edge.start, point);
+            let second: Edge = new Edge(point, edge.end);
 
             return [first, second];
         }

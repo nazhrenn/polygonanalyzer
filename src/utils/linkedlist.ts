@@ -51,8 +51,8 @@ export class LinkedList<T> implements IterableIterator<T> {
     }
 
     find(predicate: (item: T) => boolean): boolean {
-        var value: boolean = false;
-        for (var i = 0; i < this.items.length; i++) {
+        let value: boolean = false;
+        for (let i = 0; i < this.items.length; i++) {
             if (predicate(this.items[i])) {
                 this.index = i;
                 value = true;
@@ -76,7 +76,7 @@ export class LinkedList<T> implements IterableIterator<T> {
     }
 
     moveNext(): T {
-        var next: T = this.NextItem;
+        let next: T = this.NextItem;
         this.index = this.index + 1;
         if (this.index >= this.items.length)
             this.index = 0;
@@ -84,7 +84,7 @@ export class LinkedList<T> implements IterableIterator<T> {
     }
 
     movePrevious(): T {
-        var prev: T = this.PreviousItem;
+        let prev: T = this.PreviousItem;
         this.index = this.index - 1;
         if (this.index < 0)
             this.index = this.items.length - 1;
