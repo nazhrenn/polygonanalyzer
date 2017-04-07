@@ -5,22 +5,7 @@ import { Point } from './../data/point';
 
 export class EdgeAnalyzer {
 
-    analyze(samplePointSet: Point[]): Polygon {
-        let edges: LinkedList<Edge> = new LinkedList<Edge>();
-        for (let i = 0; i < samplePointSet.length; i++) {
-            let start: Point = samplePointSet[i];
-
-            let end: Point;
-            if (i == samplePointSet.length - 1) {
-                end = samplePointSet[0];
-            } else {
-                end = samplePointSet[i + 1];
-            }
-
-            let edge: Edge = new Edge(start, end);
-            edges.add(edge);
-        }
-
+    analyze(edges: LinkedList<Edge>): Polygon {
         let polygon: Polygon = new Polygon();
         let polygonIntersections: Map<string, Point> = new Map<string, Point>();
 

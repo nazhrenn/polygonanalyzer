@@ -52,7 +52,10 @@ export class PolygonSplitter {
 
             let secondPolygon: Polygon = new Polygon();
             while (!polygon.edges.CurrentItem.equals(startingEdge)) {
-                secondPolygon.addEdge(polygon.edges.movePrevious());
+                let edgeToAdd: Edge = polygon.edges.movePrevious();
+                if (!edgeToAdd.equals(startingEdge)) {
+                    secondPolygon.addEdge(edgeToAdd);
+                }
             }
 
             secondPolygon = secondPolygon.reverse();

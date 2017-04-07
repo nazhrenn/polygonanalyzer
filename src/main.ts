@@ -1,3 +1,6 @@
+import { Edge } from './data/edge';
+import { PointTransformer } from './analyzers/pointtransformer';
+import { LinkedList } from './utils/linkedlist';
 import { Point } from './data/point';
 import { DataSet } from './utils/dataset';
 import { PointAnalyzer } from './analyzers/pointanalyzer';
@@ -88,8 +91,8 @@ function analyze(samplePointSet: number[][], reverse: boolean, showBest: boolean
         Log.clear();
 
         let dataSet: DataSet<Point> = new PointAnalyzer().analyze(samplePointSet);
-
-        let polygon: Polygon = new EdgeAnalyzer().analyze(dataSet.Data);
+        let edges: LinkedList<Edge> = new PointTransformer().transform(dataSet.Data);
+        let polygon: Polygon = new EdgeAnalyzer().analyze(edges);
         let bounds: Bounds = polygon.bounds();
 
         let polygons: Polygon[] = new PolygonSplitter().analyze(polygon);
