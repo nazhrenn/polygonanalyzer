@@ -1,3 +1,4 @@
+import { CircularList } from './../utils/circularlist';
 
 
 import { Polygon } from "../data/polygon";
@@ -36,23 +37,24 @@ export class PolygonSplitter {
 
         let splitPolygons: Polygon[] = [];
         if (numberOfEdgesOnPoint > 2) {
-            polygon.edges.reset();
+            let edges: CircularList<Edge> = polygon.edges;
 
-            polygon.edges.find(c => c.end.equals(intersection));
-            let startingEdge: Edge = polygon.edges.current;
+            let startingEdge: Edge = edges.find(c => c.end.equals(intersection));
+            edges.setCurrentItem(startingEdge);
 
             let firstPolygon: Polygon = new Polygon();
 
             firstPolygon.addEdge(startingEdge);
-            while (!polygon.edges.current.start.equals(intersection)) {
-                firstPolygon.addEdge(polygon.edges.previous());
+            while (!edges.current.start.equals(intersection)) {
+                let edgeToAdd: Edge = edges.previous();
+                firstPolygon.addEdge(edgeToAdd);
             }
 
             firstPolygon = firstPolygon.reverse();
 
             let secondPolygon: Polygon = new Polygon();
-            while (!polygon.edges.current.equals(startingEdge)) {
-                let edgeToAdd: Edge = polygon.edges.previous();
+            while (!edges.current.equals(startingEdge)) {
+                let edgeToAdd: Edge = edges.previous();
                 if (!edgeToAdd.equals(startingEdge)) {
                     secondPolygon.addEdge(edgeToAdd);
                 }

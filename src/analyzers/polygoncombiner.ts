@@ -1,3 +1,5 @@
+import { Edge } from './../data/edge';
+import { CircularList } from './../utils/circularlist';
 
 import "./../utils/array.extensions";
 
@@ -27,18 +29,29 @@ export class PolygonCombiner {
                     while (touching.length > 0) {
                         if (touching.length >= 2) {
                             let target: Polygon = touching.shift();
+                            let targetEdges: CircularList<Edge> = target.edges;
                             let working: Polygon = touching.shift();
+                            let workingEdges: CircularList<Edge> = working.edges;
 
-                            target.edges.find(c => c.end.equals(intersection));
-                            working.edges.find(c => c.start.equals(intersection));
+                            let targetEdge: Edge = targetEdges.find(c => c.end.equals(intersection));
+                            let workingEdge: Edge = workingEdges.find(c => c.start.equals(intersection));
 
-                            for (let edge of working.edges) {
+                            targetEdges.setCurrentItem(targetEdge);
+                            workingEdges.setCurrentItem(workingEdge);
+
+                            let edge: Edge = workingEdges.next();
+                            while (!edge.equals(workingEdge)) {
                                 reconstituted.addEdge(edge);
+                                edge = workingEdges.next();
                             }
+                            reconstituted.addEdge(workingEdge);
 
-                            for (let edge of target.edges) {
+                            edge = targetEdges.next();
+                            while (!edge.equals(targetEdge)) {
                                 reconstituted.addEdge(edge);
+                                edge = targetEdges.next();
                             }
+                            reconstituted.addEdge(targetEdge);
 
                             let n: number = seekPolygons.indexOf(target);
                             if (n >= 0) {
@@ -51,11 +64,17 @@ export class PolygonCombiner {
                             }
                         } else {
                             let working = touching.shift();
-                            working.edges.find(c => c.start.equals(intersection));
+                            let workingEdges: CircularList<Edge> = working.edges;
+                            let workingEdge: Edge = workingEdges.find(c => c.start.equals(intersection));
 
-                            for (let edge of working.edges) {
+                            workingEdges.setCurrentItem(workingEdge);
+
+                            let edge: Edge = workingEdges.next();
+                            while (!edge.equals(workingEdge)) {
                                 reconstituted.addEdge(edge);
+                                edge = workingEdges.next();
                             }
+                            reconstituted.addEdge(workingEdge);
 
                             let n: number = seekPolygons.indexOf(working);
                             if (n >= 0) {

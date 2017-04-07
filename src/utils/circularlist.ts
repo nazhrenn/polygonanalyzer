@@ -3,46 +3,43 @@
 export class CircularList<T> extends Array<T>  {
     private index: number = -1;
 
-    private items: T[] = [];
-
     constructor(...items: T[]) {
         super();
 
         this.push(...items);
-        this.reset();
     }
 
     get first(): T {
-        if (this.items.length > 0)
-            return this.items[0];
+        if (this.length > 0)
+            return this[0];
 
         return null;
     }
 
     get last(): T {
-        if (this.items.length > 0)
-            return this.items[this.items.length - 1];
+        if (this.length > 0)
+            return this[this.length - 1];
 
         return null;
     }
 
     get current(): T {
-        return this.items[this.index];
+        return this[this.index];
     }
 
     get peekNext(): T {
-        if (this.index + 1 >= this.items.length) {
-            return this.items[0];
+        if (this.index + 1 >= this.length) {
+            return this[0];
         } else {
-            return this.items[this.index + 1];
+            return this[this.index + 1];
         }
     }
 
     get peekPrevious(): T {
         if (this.index - 1 < 0) {
-            return this.items[this.items.length - 1];
+            return this[this.length - 1];
         } else {
-            return this.items[this.index - 1];
+            return this[this.index - 1];
         }
     }
 
@@ -58,13 +55,13 @@ export class CircularList<T> extends Array<T>  {
     }
 
     reset(): void {
-        this.index = (this.items.length > 0) ? 0 : -1;
+        this.index = (this.length > 0) ? 0 : -1;
     }
 
     next(): T {
         let next: T = this.peekNext;
         this.index = this.index + 1;
-        if (this.index >= this.items.length)
+        if (this.index >= this.length)
             this.index = 0;
         return next;
     }
@@ -73,7 +70,7 @@ export class CircularList<T> extends Array<T>  {
         let prev: T = this.peekPrevious;
         this.index = this.index - 1;
         if (this.index < 0)
-            this.index = this.items.length - 1;
+            this.index = this.length - 1;
 
         return prev;
     }
