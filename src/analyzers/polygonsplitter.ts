@@ -40,11 +40,8 @@ export class PolygonSplitter {
         if (numberOfEdgesOnPoint > 2) {
             polygon.edges.reset();
 
-            let startingEdge: Edge;
-            while (!polygon.edges.CurrentItem.end.equals(intersection)) {
-                polygon.edges.moveNext();
-            }
-            startingEdge = polygon.edges.CurrentItem;
+            polygon.edges.find(c => c.end.equals(intersection));
+            let startingEdge: Edge = polygon.edges.CurrentItem;
 
             let firstPolygon: Polygon = new Polygon();
 
