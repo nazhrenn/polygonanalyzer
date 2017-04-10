@@ -33,25 +33,25 @@ export class PolygonCombiner {
                             let working: Polygon = touching.shift();
                             let workingEdges: CircularList<Edge> = working.edges;
 
-                            let targetEdge: Edge = targetEdges.find(c => c.end.equals(intersection));
+                            let targetEdge: Edge = targetEdges.find(c => c.start.equals(intersection));
                             let workingEdge: Edge = workingEdges.find(c => c.start.equals(intersection));
 
                             targetEdges.setCurrentItem(targetEdge);
                             workingEdges.setCurrentItem(workingEdge);
 
+                            reconstituted.addEdge(workingEdge);
                             let edge: Edge = workingEdges.next();
                             while (!edge.equals(workingEdge)) {
                                 reconstituted.addEdge(edge);
                                 edge = workingEdges.next();
                             }
-                            reconstituted.addEdge(workingEdge);
 
+                            reconstituted.addEdge(targetEdge);
                             edge = targetEdges.next();
                             while (!edge.equals(targetEdge)) {
                                 reconstituted.addEdge(edge);
                                 edge = targetEdges.next();
                             }
-                            reconstituted.addEdge(targetEdge);
 
                             let n: number = seekPolygons.indexOf(target);
                             if (n >= 0) {
@@ -69,12 +69,12 @@ export class PolygonCombiner {
 
                             workingEdges.setCurrentItem(workingEdge);
 
+                            reconstituted.addEdge(workingEdge);
                             let edge: Edge = workingEdges.next();
                             while (!edge.equals(workingEdge)) {
                                 reconstituted.addEdge(edge);
                                 edge = workingEdges.next();
                             }
-                            reconstituted.addEdge(workingEdge);
 
                             let n: number = seekPolygons.indexOf(working);
                             if (n >= 0) {
